@@ -1,7 +1,10 @@
-import json
+"""
+My French/English language translator
+"""
+import os
 from ibm_watson import LanguageTranslatorV3
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,34 +26,37 @@ my_translator = LanguageTranslatorV3(
 my_translator.set_service_url(f"{url}")
 
 
-# Function that takes english text and returns french text
-def englishToFrench(englishText):
-    frenchResults = my_translator.translate(
-        text=englishText,
+
+def english_to_french(english_text):
+    """Function that takes english text and returns french text"""
+    french_results = my_translator.translate(
+        text=english_text,
         model_id='en-fr').get_result()
-    frenchText = frenchResults['translations'][0]['translation']        
-    return frenchText
+    french_text = french_results['translations'][0]['translation']
+    return french_text
 
 
-# Function that takes french text and translates to english
-def frenchToEnglish(frenchText):
-    englishResults = my_translator.translate(
-        text=frenchText,
+def french_to_english(french_text):
+    """Function that takes french text and translates to english"""
+    english_results = my_translator.translate(
+        text=french_text,
         model_id='fr-en').get_result()
-    englishText = englishResults['translations'][0]['translation'] 
-    return englishText
+    english_text = english_results['translations'][0]['translation']
+    return english_text
 
 
-# Function that takes english text and translates to spanish
-def englishToSpanish(engText):
-    engResults = my_translator.translate(
-        text=engText,
+
+def english_to_spanish(eng_text):
+    """Function that takes english text and translates to spanish"""
+    eng_results = my_translator.translate(
+        text=eng_text,
         model_id='en-es').get_result()
-    spanishText = engResults['translations'][0]['translation'] 
-    return spanishText
+    spanish_text = eng_results['translations'][0]['translation']
+    return spanish_text
 
 
 
 # Print results
-print(englishToFrench("Hello what is your name?"))
-print(englishToSpanish("Hello what is your name?"))
+print("Hello, this is a French Translator")
+print(english_to_french("Hello, this is a French Translator"))
+
